@@ -34,9 +34,9 @@ Ensure the following are installed on your system:
 
 1. **Clone the Repository**:
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
-   cd backend
+   git clone https://github.com/sum1275/Notes-App-Backend.git
+   cd Notes-App-Backend
+   
    ```
 
 2. **Install Dependencies**:
@@ -47,9 +47,10 @@ Ensure the following are installed on your system:
 3. **Environment Variables**:
    Create a `.env` file in the `backend` directory with the following:
    ```env
-   PORT=5000
-   MONGO_URI=<your-mongodb-uri>
-   JWT_SECRET=<your-jwt-secret>
+   JWT_SECRET=c1fe0a2ad32f7aeb27bae00dc6f505c709996ba9e8a9babeedf089148f113a
+   MONGO_URI=mongodb://localhost:27017/notesAppTest
+   PORT=3000
+   ALLOWED_ORIGINS=http://localhost:5173
    ```
 
 4. **Run the Application**:
@@ -70,17 +71,14 @@ Ensure the following are installed on your system:
    - `POST /api/notes`: Create a note
    - `PUT /api/notes/:id`: Update a note
    - `DELETE /api/notes/:id`: Delete a note
+   - `GET /api/profile/:id :Get Profile
+   - `PUT /api/profile/:id` :Update Profile
+   - `PUT /api/profile/password/:id` :Update Password
 
----
 
-## Frontend Setup
-
-Refer to the frontend `README.md` in the `/frontend` folder for setup instructions.
-
----
 
 ## Deployment
-The application is deployed at: [Live Demo Link](#)
+The application is deployed at: [Live Demo Link](https://notetaker-three-henna.vercel.app/)
 
 ---
 
@@ -89,5 +87,4 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 
 ---
 
-## License
-This project is licensed under the [MIT License](LICENSE).
+
