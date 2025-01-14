@@ -58,7 +58,8 @@ app.use(
   })
 );
 app.use((req,res,next)=>{
-console.log('req.cookies:', req.cookies);
+// console.log('req.cookies:', req.cookies);
+console.log('process.env.jwt:', process.env.JWT_SECRET)
 next();
 })
 app.listen(process.env.PORT, () => {
