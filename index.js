@@ -21,22 +21,26 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 // Parse the allowed origins from .env
-const allowedOrigins = process.env.ALLOWED_ORIGINS
-  ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:5173"]; // Default to localhost if not defined
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true); // Allow requests from the origin
-      } else {
-        callback(new Error("Not allowed by CORS")); // Reject other origins
-      }
-    },
-    credentials: true,
-  })
-);
+// const allowedOrigins = process.env.ALLOWED_ORIGINS
+//   ? process.env.ALLOWED_ORIGINS.split(",")
+//   : ["http://localhost:5173"]; 
+
+// app.use(
+//   cors({
+//     origin: (origin, callback) => {
+//       console.log('ORIGIN:',origin)
+//       if (!origin || allowedOrigins.includes(origin)) {
+//         callback(null, true); 
+//       } else {
+//         callback(new Error("Not allowed by CORS")); 
+//       }
+//     },
+//     credentials: true,
+//   })
+// );
+
+
 
 // app.use(
 //   cors({
@@ -45,6 +49,14 @@ app.use(
 //     credentials: true,
 //   })
 // );
+
+app.use(
+  cors({
+    origin: 'https://notetaker-three-henna.vercel.app', // Frontend URL
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
+    credentials: true, // Allow cookies if needed
+  })
+);
 app.use((req,res,next)=>{
 console.log('req.cookies:', req.cookies);
 next();
