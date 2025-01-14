@@ -21,31 +21,34 @@ app.use(helmet());
 app.use(express.json());
 app.use(cookieParser());
 // Parse the allowed origins from .env
-// const allowedOrigins = process.env.ALLOWED_ORIGINS
-//   ? process.env.ALLOWED_ORIGINS.split(",")
-//   : ["http://localhost:5173"]; // Default to localhost if not defined
-
-// app.use(
-//   cors({
-//     origin: (origin, callback) => {
-//       if (!origin || allowedOrigins.includes(origin)) {
-//         callback(null, true); // Allow requests from the origin
-//       } else {
-//         callback(new Error("Not allowed by CORS")); // Reject other origins
-//       }
-//     },
-//     credentials: true,
-//   })
-// );
+const allowedOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(",")
+  : ["http://localhost:5173"]; // Default to localhost if not defined
 
 app.use(
   cors({
-    origin: "*", // Allow all origins
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow all methods
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow requests from the origin
+      } else {
+        callback(new Error("Not allowed by CORS")); // Reject other origins
+      }
+    },
     credentials: true,
   })
 );
 
+// app.use(
+//   cors({
+//     origin: "*", // Allow all origins
+//     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow all methods
+//     credentials: true,
+//   })
+// );
+app.use((req,res,next)=>{
+console.log('req.cookies:', req.cookies);
+next();
+})
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
